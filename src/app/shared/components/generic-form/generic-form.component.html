@@ -55,7 +55,7 @@
           }
 
           @if (form.get(field.name)?.invalid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)) {
-            <small class="text-red-500 block mt-1">{{ getErrorMessage(field.name) }}</small>
+            <small class="text-red-500 block mt-1">{{ form.get(field.name) | errorMessage: field.name : formFields() }}</small>
           }
         </div>
       }

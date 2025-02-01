@@ -20,4 +20,13 @@ export class UserService {
   async createUser(data: IUserMutate): Promise<IResponse> {
     return this.httpService.post<IResponse>(CREATE_USER_ENDPOINT, data);
   }
+
+  async getUserById(id:number): Promise<IUserMutate> {
+    const response = await this.httpService.get<IResponse>(CREATE_USER_ENDPOINT, {}, id);
+    return response?.data;
+  }
+
+  async updateUser(id:number, data: IUserMutate): Promise<IResponse> {
+    return this.httpService.put<IResponse>(CREATE_USER_ENDPOINT, id, data);
+  }
 }

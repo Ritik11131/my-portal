@@ -49,6 +49,7 @@ export interface ColumnConfig {
     columns: ColumnConfig[];
     toolbar?: ToolbarConfig;
     actions?:ActionsConfig;
+    size: 'small' | 'large' | undefined;
     expandableActions?:ActionsConfig;
     showExpandableActions?:boolean;
     paginator?: boolean;

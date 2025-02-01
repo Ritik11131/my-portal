@@ -14,7 +14,7 @@ export interface IUser {
 }
 
 export interface IUserMutate {
-    id: number;
+    id?: number;
     loginId: string;
     fkParentId: number;
     fkCustomerId: number;

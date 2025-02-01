@@ -1,19 +1,11 @@
 export const NEW_USER_FORM_JSON = [
     {
-      label: "Name",
-      name: "name",
-      placeholder: "Enter your name",
-      type: "text",
-      isRequired: true,
-      validate: (value: string) => (value.length < 1 ? "Name is required" : null),
-    },
-    {
       label: "Username",
       name: "userName",
       placeholder: "Enter your username",
       type: "text",
       isRequired: true,
-      validate: (value: string) => {
+      validate: (value: string) => {        
         if (value.length < 3) {
           return "Username must be at least 3 characters long";
         }
