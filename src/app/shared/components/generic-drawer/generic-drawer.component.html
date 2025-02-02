@@ -1,4 +1,4 @@
-<p-drawer [header]="header" [(visible)]="isOpen" position="right"(onHide)="close()" styleClass="!w-full md:!w-96 lg:!w-[40rem] rounded-l-2xl">
+<p-drawer [header]="header" [(visible)]="isOpen" [dismissible]="false" position="right"(onHide)="close()" styleClass="!w-full md:!w-96 lg:!w-[40rem] rounded-l-2xl">
     <ng-template #closeicon>
         <p-button size="small" icon="pi pi pi-times" [severity]="'danger'" [rounded]="true" text />
     </ng-template>

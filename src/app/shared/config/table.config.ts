@@ -57,3 +57,38 @@ export const dashboardTableConfig: TableConfig = {
     rowHover: true,
     responsive: true
   };
+
+  export const deviceTableConfig: TableConfig = {
+    columns: [
+      { field: 'vehicleNo', header: 'Vehice No', displayType:'chip' },
+      { field: 'deviceImei', header: 'Imei', },
+      { field: 'simPhoneNumber', header: 'Primary Mob Number', },
+      { field: 'simSecPhoneNumber', header: 'Secondary Mob Number', },
+      { field: 'installationOn', header: 'Installation Date', displayType:'date' },
+      { field: 'creationTime', header: 'Created On', displayType:'date' },
+    ],
+    toolbar: {
+      showNew: true,
+      showExport: true
+    },
+    actions: {
+      customButtons: [
+        {
+          id: 1,
+          key: 'edit',
+          tooltip: 'Update',
+          icon: 'pi pi-user-edit',
+          severity: 'contrast'
+        }
+      ]
+    },
+    rows:5,
+    size:'small',
+    paginator: true,
+    globalFilter: true,
+    selectionMode: 'single',
+    minWidth:'75rem',
+    showCurrentPageReport: true,
+    rowHover: true,
+    responsive: true
+  };

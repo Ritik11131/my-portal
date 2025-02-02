@@ -6,6 +6,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { TextareaModule } from 'primeng/textarea';
 import { RadioButtonModule } from "primeng/radiobutton";
 import { ErrorMessagePipe } from "@/app/core/pipes/form/error-message.pipe";
+import { SelectModule } from 'primeng/select';
 
 export interface FormField {
   label: string;
@@ -14,7 +15,7 @@ export interface FormField {
   type: string;
   isRequired?: boolean;
   validate?: (value: string) => string | null;
-  options?: { label: string; name: string; value: any }[];
+  options?: any[];
 }
 
 export type FormData = {
@@ -23,7 +24,7 @@ export type FormData = {
 
 @Component({
   selector: 'app-generic-form',
-  imports: [CommonModule, ReactiveFormsModule, ButtonModule, InputTextModule, TextareaModule, RadioButtonModule, ErrorMessagePipe],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, InputTextModule, TextareaModule, RadioButtonModule, ErrorMessagePipe, SelectModule],
   templateUrl: './generic-form.component.html',
   styleUrl: './generic-form.component.css'
 })

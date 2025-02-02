@@ -54,6 +54,7 @@ export class UserComponent {
 
 
   handleNewUpdateUser() {
+    this.initialData = {};
     this.uiService.openDrawer(this.createUpdateUserContent, "User Management");
   }
 
@@ -67,7 +68,8 @@ export class UserComponent {
     } catch (error) {
       
     }
-    this.handleNewUpdateUser();
+    this.uiService.openDrawer(this.createUpdateUserContent, "User Management");
+
   }
 
   async handleFormSubmit(formData: FormData): Promise<void> {

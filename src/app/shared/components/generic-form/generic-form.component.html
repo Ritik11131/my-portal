@@ -37,20 +37,31 @@
               ></textarea>
             }
             @case ('radio') {
-              <div class="mt-2">
+              <div class="mt-2 grid grid-cols-2 gap-2">
                 @for (option of field.options; track option.name) {
-                  <div class="flex items-center mb-2">
+                  <div class="flex items-center">
                     <p-radioButton
                       [inputId]="option.name"
                       [formControlName]="field.name"
                       [value]="option.value"
                     ></p-radioButton>
-                    <label [for]="option.name" class="ml-3 text-sm font-medium text-gray-700">
+                    <label [for]="option.name" class="ml-2 text-sm font-medium text-gray-700">
                       {{ option.label }}
                     </label>
                   </div>
                 }
               </div>
+            }
+            @case ('dropdown') {
+              <p-select
+              [filter]="true"
+                [options]="field.options"
+                [formControlName]="field.name"
+                [placeholder]="field.placeholder"
+                optionLabel="name"
+                optionValue="value"
+                class="w-full"
+              ></p-select>
             }
           }
 
