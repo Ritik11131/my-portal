@@ -58,27 +58,47 @@ export class DeviceComponent {
   
   
   
-    handleNewUpdateDevice() {
+    async handleNewUpdateDevice(): Promise<void> {
       this.initialData = {};
+      await this.updateFormField();
       this.uiService.openDrawer(this.createUpdateDeviceContent, "Device Management");
     }
   
     async handleConfigActionClick(event : {action: string, item: any}): Promise<void> {
       console.log(event);
-      try { 
-        // const response: IMutateDevice = await this.deviceService.getDeviceById(event?.item?.id);
-        this.initialData = this.device = event.item;
-        console.log(this.device,'user');
-      } catch (error) {
-        
-      }
+      this.initialData = this.device = event.item;
+      await this.updateFormField();
+      this.uiService.openDrawer(this.createUpdateDeviceContent, "Device Management");
+    }
+  
+    async handleFormSubmit(formData: FormData): Promise<void> {
+      console.log('Form submitted:', formData);
 
+      const { id } = formData
+    
+      await this.handleCreateUpdateDevice(formData, id);
+    }
+  
+    async handleCreateUpdateDevice(payload: IMutateDevice | FormData, id: number ) : Promise<void> {
+      try {
+        const response = id ? await this.deviceService.updateDevice(id, payload as IMutateDevice) : await this.deviceService.createDevice(payload as IMutateDevice);
+        console.log(response);
+        this.uiService.closeDrawer();
+        this.uiService.showToast('success', 'Success', `User ${id ? 'updated' : 'created'} successfully`);
+        this.loadDeviceService();
+      } catch (error: any) {
+        console.log(error);
+        this.uiService.showToast('error', 'Error', 'Failed to create user');
+      }
+    }
+
+
+    async updateFormField(): Promise<void> {
       const [deviceTypes, vehicleTypes, operatorTypes] = await Promise.all([
         this.dropdownService.getDeviceTypeOptions(),
         this.dropdownService.getVehicleTypeOptions(),
         this.dropdownService.getOperatorTypeOptions()
       ]);
-
        // Update the signal with the fetched options
        this.deviceFormFields.update((fields) => {
         return fields.map((field) => {
@@ -112,31 +132,6 @@ export class DeviceComponent {
           return field;
         });
       });
-
-
-      this.uiService.openDrawer(this.createUpdateDeviceContent, "Device Management");
-
-    }
-  
-    async handleFormSubmit(formData: FormData): Promise<void> {
-      console.log('Form submitted:', formData);
-
-      const { id } = formData
-    
-      await this.handleCreateUpdateDevice(id ? formData : {}, id);
-    }
-  
-    async handleCreateUpdateDevice(payload: IMutateDevice | FormData, id: number ) : Promise<void> {
-      try {
-        const response = id ? await this.deviceService.updateDevice(id, payload as IMutateDevice) : await this.deviceService.createDevice(payload as IMutateDevice);
-        console.log(response);
-        this.uiService.closeDrawer();
-        this.uiService.showToast('success', 'Success', `User ${id ? 'updated' : 'created'} successfully`);
-        this.loadDeviceService();
-      } catch (error: any) {
-        console.log(error);
-        this.uiService.showToast('error', 'Error', 'Failed to create user');
-      }
     }
 
 }
