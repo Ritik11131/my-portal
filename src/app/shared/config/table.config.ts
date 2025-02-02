@@ -48,6 +48,7 @@ export const dashboardTableConfig: TableConfig = {
         }
       ]
     },
+    rows:5,
     size:'small',
     paginator: true,
     globalFilter: true,
