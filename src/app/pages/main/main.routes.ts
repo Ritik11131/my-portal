@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main.component';
 import { ReportsComponent } from './reports/reports.component';
+import { RawDataComponent } from './raw-data/raw-data.component';
 
 export const mainRoutes: Routes = [
     {
@@ -20,7 +21,11 @@ export const mainRoutes: Routes = [
             {
                 path: 'reports',
                 loadChildren: () => import('./reports/reports.routes').then(m => m.reportsRoutes)
-              },
+            },
+            {
+                path: 'raw-data',
+                component: RawDataComponent
+            },
         ]
     }
 ];

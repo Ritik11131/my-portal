@@ -19,6 +19,6 @@ export class AllReportsComponent {
 
   handleDynamicReport(report:any) {
     this.router.navigate(['/main/reports', report.id]);
-   }
+  }
 
 }

@@ -48,7 +48,7 @@ export const dashboardTableConfig: TableConfig = {
         }
       ]
     },
-    rows:5,
+    rows:10,
     size:'small',
     paginator: true,
     globalFilter: true,
@@ -83,7 +83,7 @@ export const dashboardTableConfig: TableConfig = {
         }
       ]
     },
-    rows:5,
+    rows:10,
     size:'small',
     paginator: true,
     globalFilter: true,
@@ -99,6 +99,23 @@ export const dashboardTableConfig: TableConfig = {
       { field: 'vehicleNo', header: 'Vehice No', displayType:'chip' },
       { field: 'dateDis', header: 'Date', displayType:'date' },
       { field: 'distance', header: 'Distance'}
+    ],
+    rows:10,
+    size:'small',
+    paginator: true,
+    globalFilter: true,
+    selectionMode: 'single',
+    minWidth:'75rem',
+    showCurrentPageReport: true,
+    rowHover: true,
+    responsive: true
+  };
+
+  export const rawDataTableConfig: TableConfig = {
+    columns: [
+      { field: 'vehicleNo', header: 'Last Time', displayType:'chip' },
+      { field: 'dateDis', header: 'Device ID', displayType:'date' },
+      { field: 'distance', header: 'Raw Data'}
     ],
     rows:10,
     size:'small',

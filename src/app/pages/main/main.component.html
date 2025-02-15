@@ -1,8 +1,8 @@
-<section class="landing-hero px-8 lg:px-20">
+<section class="landing-hero lg:px-14">
     <div class="grid gap-6 justify-items-center">
         <div
-            class="grid bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full h-[85vh] max-h-[1040px] 
-            rounded-3xl p-6 lg:mt-20 gap-6 grid-cols-1 lg:grid-cols-[auto_1fr] overflow-hidden">
+            class="grid bg-surface-0 dark:bg-surface-950 w-full h-[100vh]
+             p-6 gap-6 grid-cols-1 lg:grid-cols-[auto_1fr] overflow-hidden">
             <!-- Sidebar Section -->
             <div [ngClass]="{
                     'w-auto': isSlimMenu,
@@ -15,7 +15,7 @@
                         'w-auto': !isSlimMenu
                     }">
                     <div class="flex items-center gap-3">
-                        <div
+                        <div (click)="isSlimMenu = !isSlimMenu"
                             class="w-14 h-14 border border-primary rounded-xl flex items-center justify-center bg-white shadow-md hover:shadow-lg transition-shadow duration-200">
                             <img src="school_logo.png" alt="Maintenance Logo"
                                 class="w-9 h-9 object-contain animate-pulse" />
