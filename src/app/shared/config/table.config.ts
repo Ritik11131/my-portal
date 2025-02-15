@@ -93,3 +93,20 @@ export const dashboardTableConfig: TableConfig = {
     rowHover: true,
     responsive: true
   };
+
+  export const reportTableConfig: TableConfig = {
+    columns: [
+      { field: 'vehicleNo', header: 'Vehice No', displayType:'chip' },
+      { field: 'dateDis', header: 'Date', displayType:'date' },
+      { field: 'distance', header: 'Distance'}
+    ],
+    rows:10,
+    size:'small',
+    paginator: true,
+    globalFilter: true,
+    selectionMode: 'single',
+    minWidth:'75rem',
+    showCurrentPageReport: true,
+    rowHover: true,
+    responsive: true
+  };

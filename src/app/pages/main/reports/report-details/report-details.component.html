@@ -1,1 +1,17 @@
-<p>report-details works!</p>
+<div class="flex flex-col gap-4 p-4 sticky top-0 bg-white dark:bg-gray-900 z-10 mb-10">
+    <div class="flex items-center justify-between text-color">
+        <div class="flex items-center gap-2 text-xl font-medium">
+            <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-lg text-sm font-semibold">
+                {{ report?.title?.toUpperCase() }}
+            </span>
+            Report
+        </div>
+        <div class="flex gap-3"> 
+            <p-select [options]="vehicleSelectOptions" [filter]="true" filterBy="name" [showClear]="true" optionLabel="name" optionValue="value" placeholder="Select a Vehicle" class="w-full md:w-56" [(ngModel)]="selectedVehicle" />
+            <p-datepicker appendTo="body" [showIcon]="true" [iconDisplay]="'input'" selectionMode="range" [showButtonBar]="true" [(ngModel)]="date" [maxDate]="maxDate" placeholder="Select Date Range"/>
+            <p-button icon="pi pi-search" (onClick)="loadReport()"/>
+        </div>
+    </div>
+</div>
+
+<app-generic-table [data]="[]" [config]="tableConfig" [title]="report?.title" [showActions]="false" [loading]="loading"/>

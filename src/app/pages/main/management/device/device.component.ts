@@ -51,7 +51,7 @@ export class DeviceComponent {
         this.tableData = data;
         this.loading = false;
       } catch (error) {
-        this.uiService.showToast('error', 'Error', 'Failed to fetch user list');
+        this.uiService.showToast('error', 'Error', 'Failed to fetch device list');
         this.loading = false;
       }
     }

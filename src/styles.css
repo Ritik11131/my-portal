@@ -45,3 +45,7 @@ html {
     font-size: 14px;
 }
 
+.p-datatable-mask {
+  z-index: 99 !important;
+}
+
