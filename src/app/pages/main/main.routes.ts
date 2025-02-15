@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main.component';
+import { ReportsComponent } from './reports/reports.component';
 
 export const mainRoutes: Routes = [
     {
@@ -15,7 +16,11 @@ export const mainRoutes: Routes = [
             {
                 path: 'management',
                 loadChildren: () => import('./management/management.routes').then(m => m.managementRoutes)
-            }
+            },
+            {
+                path: 'reports',
+                loadChildren: () => import('./reports/reports.routes').then(m => m.reportsRoutes)
+              },
         ]
     }
 ];
