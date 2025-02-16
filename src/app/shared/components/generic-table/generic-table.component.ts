@@ -17,6 +17,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { TagSeverityPipe } from '@/app/core/pipes/table-pipes/tag-severity.pipe';
 import { TagValuePipe } from '@/app/core/pipes/table-pipes/tag-value.pipe';
+import { SelectModule } from 'primeng/select';
 
 
 @Component({
@@ -28,6 +29,7 @@ import { TagValuePipe } from '@/app/core/pipes/table-pipes/tag-value.pipe';
     ToolbarModule,
     ButtonModule,
     InputTextModule,
+    SelectModule,
     FileUploadModule,
     TagModule,
     TooltipModule,
@@ -55,6 +57,7 @@ export class GenericTableComponent {
   @Input() expandedRows: any = {}; // Expanded rows
 
   @Output() onNew = new EventEmitter<boolean>();
+  @Output() onDrpDwnSelect = new EventEmitter<any>();
   // @Output() onEdit = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
   @Output() onDeleteSelected = new EventEmitter<any[]>();

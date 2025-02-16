@@ -17,6 +17,7 @@ export interface ColumnConfig {
   
   export interface ToolbarConfig {
     showNew?: boolean;
+    showDropdown?:{ enabled:true, options:{name:any, value:any}[], placeholder:string};
     showDelete?: boolean;
     showImport?: boolean;
     showExport?: boolean;

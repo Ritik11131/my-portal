@@ -20,3 +20,6 @@ export const UPLOAD_PARENT_BULK_ENDPOINT = 'bulk/parents/create';
 export const GET_DEVICE_TYPE_ENDPOINT ='Masters/DeviceType';
 export const GET_OPERATOR_TYPE_ENDPOINT ='Masters/OperatorType';
 export const GET_VEHICLE_TYPE_ENDPOINT ='Masters/VehicleType';
+
+// Raw Data Endpoint
+export const GET_RAWLASTPOINT_ENDPOINT = 'RawLastPoint'

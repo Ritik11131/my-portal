@@ -1,4 +1,4 @@
 <div class="border border-surface rounded-2xl p-5">
-    <app-generic-table [data]="[]" [config]="tableConfig" title="Raw Data" [showActions]="false" [loading]="loading">
+    <app-generic-table [data]="[]" [config]="tableConfig" title="Raw Data" [showActions]="false" [loading]="loading" (onDrpDwnSelect)="handleVehicleChange($event)">
     </app-generic-table>
 </div>

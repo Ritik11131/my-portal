@@ -9,6 +9,11 @@
             (onClick)="onNew.emit(true)"
           />
         }
+
+        @if (config.toolbar?.showDropdown && config.toolbar?.showDropdown?.enabled) {
+          <p-select [options]="config.toolbar?.showDropdown?.options" [filter]="true" filterBy="name" [showClear]="true" optionLabel="name" [placeholder]="config.toolbar?.showDropdown?.placeholder" class="w-full md:w-56" (onChange)="onDrpDwnSelect.emit($event)" />
+        }
+
         @if (config.toolbar?.showDelete) {
           <p-button
             severity="danger"

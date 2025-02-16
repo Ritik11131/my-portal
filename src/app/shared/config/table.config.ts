@@ -117,6 +117,13 @@ export const dashboardTableConfig: TableConfig = {
       { field: 'dateDis', header: 'Device ID', displayType:'date' },
       { field: 'distance', header: 'Raw Data'}
     ],
+    toolbar: {
+      showDropdown: {
+        enabled: true,
+        options:[],
+        placeholder:'Select a Vehicle'
+      },
+    },
     rows:10,
     size:'small',
     paginator: true,
