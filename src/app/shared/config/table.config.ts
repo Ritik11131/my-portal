@@ -42,6 +42,7 @@ export const dashboardTableConfig: TableConfig = {
         {
           id: 1,
           key: 'edit',
+          label:'Edit',
           tooltip: 'Update',
           icon: 'pi pi-user-edit',
           severity: 'contrast'
@@ -77,6 +78,7 @@ export const dashboardTableConfig: TableConfig = {
         {
           id: 1,
           key: 'edit',
+          label:'Edit',
           tooltip: 'Update',
           icon: 'pi pi-pen-to-square',
           severity: 'contrast'

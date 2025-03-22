@@ -18,6 +18,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TagSeverityPipe } from '@/app/core/pipes/table-pipes/tag-severity.pipe';
 import { TagValuePipe } from '@/app/core/pipes/table-pipes/tag-value.pipe';
 import { SelectModule } from 'primeng/select';
+import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
 
 
 @Component({
@@ -38,6 +40,7 @@ import { SelectModule } from 'primeng/select';
     IconFieldModule,
     InputIconModule,
     ChipModule,
+    MenuModule,
     TagSeverityPipe,
     TagValuePipe
   ],
@@ -72,6 +75,19 @@ export class GenericTableComponent {
   @ViewChild('dt') table!: Table;
 
   selectedItems: any[] = [];
+  actionItems: MenuItem[] | undefined = [];
+
+
+
+
+  loadActionColumnItems(selectedRow: any) {
+      // Map actions to menuItems for p-menu
+      this.actionItems = this.config?.actions?.customButtons?.map((action: any) => ({
+        label: action.label,
+        icon: action.icon,
+        command: () => this.handleActionClick(action.key, selectedRow)
+      }));
+  }
 
 
 

@@ -42,6 +42,7 @@ export interface ColumnConfig {
       key:string;
       tooltip: string;
       icon?: string;
+      label?:string;
       severity?: "success" | "info" | "warn" | "danger" | "help" | "primary" | "secondary" | "contrast" | null | undefined;
     }[];
   }

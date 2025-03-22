@@ -21,7 +21,6 @@ export class RawDataComponent implements OnInit {
   vehicleSelectOptions: { name: string, value: any }[] = [];
 
 
-
   constructor(private deviceService: DeviceService, private uiService: UiService, private rawDataService: RawDataService) { }
 
   ngOnInit(): void {
@@ -46,11 +45,11 @@ export class RawDataComponent implements OnInit {
 
 
   async handleVehicleChange(event: { originalEventy: PointerEvent, value: { name: any, value: any } }): Promise<void> {
-    this.loading = true;
     console.log(event);
-    const { value } = event.value
+    const { value } = event?.value
     console.log(value);
-
+    
+    this.loading = true;
     try {
       const response = await this.rawDataService.fetchRawLastPoint({ deviceId: value });
       console.log(response);

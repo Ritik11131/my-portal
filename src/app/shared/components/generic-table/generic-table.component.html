@@ -215,28 +215,15 @@
         }
         @if (showActions) {
           <td>
-            @if(config.actions?.showEdit) {
-              <p-button
-              icon="pi pi-pen-to-square"
-              text
-              [severity]="'info'"
-              [pTooltip]="'Edit'"
-              tooltipPosition="bottom"
-              [size]="'small'"
-              (click)="handleActionClick('edit', item)"
-              />
-            }
+            <p-menu appendTo="body" #menu [model]="actionItems" [popup]="true" />
+            <p-button 
+            [pTooltip]="'Click to view actions'"
+            tooltipPosition="bottom"
+            [size]="'small'"
+            icon="pi pi-ellipsis-v"
+            text 
+            (click)="loadActionColumnItems(item); menu.toggle($event)"/>
 
-            @for (btn of config.actions?.customButtons; track btn.key) {
-              <p-button
-                text
-                [pTooltip]="btn.tooltip"
-                tooltipPosition="bottom"
-                [icon]="btn.icon"
-                [severity]="btn.severity"
-                (onClick)="handleActionClick(btn.key, item)"
-              />
-            }
           </td>
         }
       </tr>
