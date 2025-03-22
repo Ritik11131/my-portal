@@ -135,7 +135,7 @@
           </th>
         }
         @if(config.expandable) {
-          <th style="width: 5rem"></th>
+          <th style="width: 5rem">Linked</th>
         }
         @for (col of config.columns; track col.field) {
           <th
@@ -234,18 +234,29 @@
       <tr>
           <td colspan="7">
               <div class="p-4">
+                @if (expandLoading[item.id]) {
+                  <!-- Show loading state while fetching data -->
+                  <div class="flex justify-center items-center py-6">
+                    <i class="pi pi-spin pi-spinner text-2xl"></i>
+                    <span class="ml-2">Loading data...</span>
+                  </div>
+                } @else {
                   <div class="mb-4 text-md leading-8 text-muted-color font-semibold">Command List for {{ item.name }}</div>
-                  <p-table [value]="item.nested" [rows]="10" [paginator]="true"
-                  [tableStyle]="{ 'min-width': config.minWidth || '100rem' }"
-                  showGridlines="true"
-                  [rowHover]="config.expandableRowHover"
-                  [scrollable]="config.scrollable"
-                  [scrollHeight]="config.scrollHeight"
-                  [styleClass]="config.styleClass"
-                  [showCurrentPageReport]="config.showCurrentPageReport"
-                  [size]="'small'"
-                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                  dataKey="id">
+                  <p-table 
+                    [value]="item.nested || []" 
+                    [rows]="10" 
+                    [paginator]="true"
+                    [tableStyle]="{ 'min-width': config.minWidth || '100rem' }"
+                    showGridlines="true"
+                    [rowHover]="config.expandableRowHover"
+                    [scrollable]="config.scrollable"
+                    [scrollHeight]="config.scrollHeight"
+                    [styleClass]="config.styleClass"
+                    [showCurrentPageReport]="config.showCurrentPageReport"
+                    [size]="'small'"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    dataKey="id"
+                  >
                       <ng-template #header>
                           <tr>
                             @for (col of config.expandableColumns; track col.field) {
@@ -287,6 +298,7 @@
                           </tr>
                       </ng-template>
                   </p-table>
+                }
               </div>
           </td>
       </tr>

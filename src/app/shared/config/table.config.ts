@@ -44,7 +44,7 @@ export const dashboardTableConfig: TableConfig = {
           key: 'edit',
           label:'Edit',
           tooltip: 'Update',
-          icon: 'pi pi-user-edit',
+          icon: 'pi pi-pen-to-square',
           severity: 'contrast'
         }
       ]
@@ -57,7 +57,12 @@ export const dashboardTableConfig: TableConfig = {
     minWidth:'75rem',
     showCurrentPageReport: true,
     rowHover: true,
-    responsive: true
+    responsive: true,
+    expandable: true,
+    expandableColumns: [
+      { field: 'deviceImei', header: 'Imei', },
+    ]
+
   };
 
   export const deviceTableConfig: TableConfig = {
@@ -89,11 +94,15 @@ export const dashboardTableConfig: TableConfig = {
     size:'small',
     paginator: true,
     globalFilter: true,
-    selectionMode: 'single',
+    selectionMode: 'multiple',
     minWidth:'75rem',
     showCurrentPageReport: true,
     rowHover: true,
-    responsive: true
+    responsive: true,
+    expandable: true,
+    expandableColumns: [
+      { field: 'deviceImei', header: 'Imei', },
+    ]
   };
 
   export const reportTableConfig: TableConfig = {

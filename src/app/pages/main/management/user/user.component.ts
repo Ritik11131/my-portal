@@ -25,7 +25,10 @@ export class UserComponent {
   loading: boolean = false;
   userFormFields = signal<FormField[]>(NEW_USER_FORM_JSON);
   initialData: FormData = {};
-  user!: FormData
+  user!: FormData;
+  expandedRows: { [key: string]: boolean } = {};
+  expandLoading: { [key: string]: boolean } = {};
+  loadedExpandedData: { [key: string]: boolean } = {}; // Track which rows have loaded data
 
   constructor(private uiService: UiService, private httpService: HttpService, private userService: UserService) { }
 
@@ -97,6 +100,38 @@ export class UserComponent {
       console.log(error);
       this.uiService.showToast('error', 'Error', 'Failed to create user');
     }
+  }
+
+  async onRowExpand(event: any): Promise<void> {
+    console.log(event);
+    
+    const item = event.data;
+    const itemId = item.id;
+
+    // Check if data is already loaded for this row
+    if (!this.loadedExpandedData[itemId]) {
+      this.expandLoading[itemId] = true;
+
+      try {
+        const response = await this.userService.getUserById(itemId);
+        item.nested = response;
+        this.loadedExpandedData[itemId] = true;
+      } catch (error: any) {
+        this.uiService.showToast('error', 'Error', error.error.data || 'Failed to create user');
+        item.nested = []; // Set empty array on error
+      } finally {
+        this.expandLoading[itemId] = false;
+      }
+    }
+    // console.log(this.loadedExpandedData);
+    
+  }
+
+  onRowCollapse(event: any) {
+    // Optional: You can free memory here if needed for large datasets
+    const itemId = event.data.id;
+    // Uncomment the following line if you want to clear data when collapsed
+    delete this.loadedExpandedData[itemId];
   }
 
 }

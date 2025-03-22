@@ -8,10 +8,12 @@ export const GET_VEHICLE_LIST_ENDPOINT = 'VehicleList';
 // User Endpoints
 export const GET_USER_LIST_ENDPOINT = 'User';
 export const CREATE_USER_ENDPOINT = 'User';
+export const GET_USER_BY_ID_ENDPOINT = 'device/GetByUserId';
 
 // Device Endpoints
 export const GET_DEVICE_LIST_ENDPOINT = 'device';
 export const CREATE_DEVICE_ENDPOINT = 'device';
+export const GET_USER_BY_DEVICE_ID_ENDPOINT = 'DeviceMapping/GetUserListByDeviceId';
 export const SAMPLE_FILE_ENDPOINT = 'storage/static/parent_bulk_upload.xlsx';
 export const SAMPLE_FILENAME = 'parent_bulk_upload.xlsx';
 export const UPLOAD_PARENT_BULK_ENDPOINT = 'bulk/parents/create';

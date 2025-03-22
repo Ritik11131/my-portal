@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { IUser, IUserMutate } from '@/app/shared/interfaces/user.interfaces';
 import { IResponse } from '@/app/shared/interfaces/api.interfaces';
-import { CREATE_USER_ENDPOINT, GET_USER_LIST_ENDPOINT } from '@/app/shared/constants/endpoint';
+import { CREATE_USER_ENDPOINT, GET_USER_BY_ID_ENDPOINT, GET_USER_LIST_ENDPOINT } from '@/app/shared/constants/endpoint';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class UserService {
   }
 
   async getUserById(id:number): Promise<IUserMutate> {
-    const response = await this.httpService.get<IResponse>(CREATE_USER_ENDPOINT, {}, id);
+    const response = await this.httpService.get<IResponse>(GET_USER_BY_ID_ENDPOINT, {}, id);
     return response?.data;
   }
 

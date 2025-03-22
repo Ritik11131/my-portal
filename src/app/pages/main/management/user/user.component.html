@@ -1,6 +1,8 @@
 <div class="border border-surface rounded-2xl p-5">
     <app-generic-table [data]="tableData" [config]="tableConfig" title="User" [showActions]="true" [loading]="loading" [activeOnes]="'0 User'"
-     (onNew)="handleNewUpdateUser()" (configActionClicked)="handleConfigActionClick($event)">
+     (onNew)="handleNewUpdateUser()" (configActionClicked)="handleConfigActionClick($event)"  [expandLoading]="expandLoading"
+     [expandedRows]="expandedRows" (rowExpand)="onRowExpand($event)"
+     (rowCollapse)="onRowCollapse($event)">
     </app-generic-table>
 </div>
 

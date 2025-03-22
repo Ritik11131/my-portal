@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { IResponse } from '@/app/shared/interfaces/api.interfaces';
-import { CREATE_DEVICE_ENDPOINT, GET_DEVICE_LIST_ENDPOINT } from '@/app/shared/constants/endpoint';
+import { CREATE_DEVICE_ENDPOINT, GET_DEVICE_LIST_ENDPOINT, GET_USER_BY_DEVICE_ID_ENDPOINT } from '@/app/shared/constants/endpoint';
 import { IDevice, IMutateDevice } from '@/app/shared/interfaces/device.interfaces';
 
 @Injectable({
@@ -29,4 +29,10 @@ export class DeviceService {
     async updateDevice(id:number, data: IMutateDevice): Promise<IResponse> {
       return this.httpService.put<IResponse>(CREATE_DEVICE_ENDPOINT, id, data);
     }
+
+    async getUsersByDeviceId(id:number): Promise<IResponse> {
+      const response = await this.httpService.get<IResponse>(GET_USER_BY_DEVICE_ID_ENDPOINT, {}, id);
+      return response?.data;
+    }
+
 }

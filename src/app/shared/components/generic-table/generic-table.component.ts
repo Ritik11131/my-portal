@@ -57,7 +57,9 @@ export class GenericTableComponent {
   @Input() showActions: boolean = true;
   @Input() showSummary: boolean = true;
   @Input() activeOnes = '';
-  @Input() expandedRows: any = {}; // Expanded rows
+  // Add an input for expanded row loading states
+  @Input() expandLoading: { [key: string]: boolean } = {};
+  @Input() expandedRows: { [key: string]: boolean } = {};
 
   @Output() onNew = new EventEmitter<boolean>();
   @Output() onDrpDwnSelect = new EventEmitter<any>();
