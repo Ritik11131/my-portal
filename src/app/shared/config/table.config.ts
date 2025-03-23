@@ -59,9 +59,26 @@ export const dashboardTableConfig: TableConfig = {
     rowHover: true,
     responsive: true,
     expandable: true,
+    showExpandableActions: true,
     expandableColumns: [
+      { field: 'vehicleNo', header: 'Vehicle No.', displayType:'chip' },
       { field: 'deviceImei', header: 'Imei', },
-    ]
+      { field: 'deviceId', header: 'Device ID' },
+      { field: 'simPhoneNumber', header: 'Primary Mob Number', },
+      { field: 'installationOn', header: 'Installation Date', displayType: 'date' },
+    ],
+    expandableActions: {
+      customButtons: [
+        {
+          id: 1,
+          key: 'nested_edit',
+          label:'Edit',
+          tooltip: 'Update',
+          icon: 'pi pi-pen-to-square',
+          severity: 'contrast'
+        }
+      ]
+    }
 
   };
 

@@ -78,6 +78,7 @@ export class GenericTableComponent {
 
   selectedItems: any[] = [];
   actionItems: MenuItem[] | undefined = [];
+  nestedActionItems: MenuItem[] | undefined = [];
 
 
 
@@ -89,6 +90,16 @@ export class GenericTableComponent {
         icon: action.icon,
         command: () => this.handleActionClick(action.key, selectedRow)
       }));
+  }
+
+
+  loadNestedActionColumnItems(selectedRow: any) {
+    // Map actions to menuItems for p-menu
+    this.nestedActionItems = this.config?.expandableActions?.customButtons?.map((action: any) => ({
+      label: action.label,
+      icon: action.icon,
+      command: () => this.handleNestedActionClick(action.key, selectedRow)
+    }));
   }
 
 

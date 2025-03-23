@@ -273,21 +273,60 @@
                       <ng-template #body let-item>
                           <tr>
                             @for (col of config.expandableColumns; track col.field) {
-                              <td>{{item[col.field] || '-'}}</td>
+                              <td class="text-center">
+                                @switch (col.displayType) {
+                                  @case ('image') {
+                                    <img
+                                      [src]="col.imageConfig?.baseUrl + item[col.field]"
+                                      [alt]="col.imageConfig?.alt || item[col.field]"
+                                      [style.width]="col.imageConfig?.width || '64px'"
+                                      class="rounded"
+                                    />
+                                  }
+                                  @case ('chip') {
+                                    <p-tag [value]="item | tagValue: col.field" [severity]="item | tagSeverity: col.field" />
+                                  }
+                                  @case('icon') {
+                                    <i class="pi"
+                                    [ngClass]="{
+                                        'text-green-500 pi-check-circle': item[col.field],
+                                        'text-red-500 pi-times-circle': !item[col.field]
+                                    }"
+                                ></i>
+                                  }
+                                  
+                                  @case ('avatar') {
+                                    <p-avatar
+                                      [image]="item[col.field]"
+                                      shape="circle"
+                                      [size]="col.imageConfig?.width || 'normal'"
+                                    />
+                                  }
+                                  @case ('currency') {
+                                    {{ item[col.field] | currency: col.currencyCode || 'USD' }}
+                                  }
+                                  @case('date') {
+                                    {{ (item[col.field] | date:'medium') || '-' }}
+                    
+                                  }
+                                  @default {
+                                    {{ item[col.field] || '-' }}
+                                  }
+                                }
+                              </td>
                             }
                             @if (config.showExpandableActions) {
+
                               <td>
-                                @if(config.expandableActions?.showEdit) {
-                                  <p-button
-                                  icon="pi pi-pen-to-square"
-                                  text
-                                  [severity]="'info'"
-                                  [pTooltip]="'Edit'"
-                                  tooltipPosition="bottom"
-                                  [size]="'small'"
-                                  (click)="handleNestedActionClick('nested_edit', item)"
-                                  />
-                                }
+                                <p-menu appendTo="body" #menu [model]="nestedActionItems" [popup]="true" />
+                                <p-button 
+                                [pTooltip]="'Click to view actions'"
+                                tooltipPosition="bottom"
+                                [size]="'small'"
+                                icon="pi pi-ellipsis-v"
+                                text 
+                                (click)="loadNestedActionColumnItems(item); menu.toggle($event)"/>
+                    
                               </td>
                             }
                           </tr>
