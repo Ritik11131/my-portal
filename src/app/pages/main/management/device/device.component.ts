@@ -22,6 +22,8 @@ import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
 export class DeviceComponent {
 
    @ViewChild("createUpdateDeviceContent") createUpdateDeviceContent!: TemplateRef<any>;
+   @ViewChild("updateLinkedUserContent") updateLinkedUserContent!: TemplateRef<any>;
+
   
   
     tableConfig: TableConfig = deviceTableConfig;
@@ -29,10 +31,14 @@ export class DeviceComponent {
     loading: boolean = false;
     deviceFormFields = signal<FormField[]>(NEW_DEVICE_FORM_JSON);
     initialData: FormData = {};
+    nestedInitialData: FormData = {};
     device!: FormData;
+    nestedDevice!: FormData;
     expandedRows: { [key: string]: boolean } = {};
     expandLoading: { [key: string]: boolean } = {};
     loadedExpandedData: { [key: string]: boolean } = {}; // Track which rows have loaded data
+    userFormFields = signal<FormField[]>(NEW_USER_FORM_JSON);
+
   
     constructor(private uiService: UiService, private httpService: HttpService, private userService: UserService, 
                 private deviceService:DeviceService, private dropdownService:DropdownService) { }
@@ -168,6 +174,48 @@ export class DeviceComponent {
       const itemId = event.data.id;
       // Uncomment the following line if you want to clear data when collapsed
       delete this.loadedExpandedData[itemId];
+    }
+
+    async handleLinkedDeviceFormSubmit(formData: FormData): Promise<void> {
+      console.log('Form submitted:', formData);
+      const { id , loginId, userName, email, mobileNo, password, userType } = formData;
+      const payload: IUserMutate = {
+        loginId, fkParentId: 0, fkCustomerId: 0,
+        userName, email, password, mobileNo, userType, timezone: "05:30",
+        creationTime: Math.floor(Date.now() / 1000).toString(), // Current timestamp in seconds
+        lastUpdateOn: Math.floor(Date.now() / 1000).toString(), // Current timestamp in seconds
+        isActive: 1
+      };
+  
+       await this.handleCreateUpdateUser(id ? formData : payload, id);
+    }
+
+    async handleCreateUpdateUser(payload: IUserMutate | FormData, id: number ) : Promise<void> {
+      try {
+        const response = id ? await this.userService.updateUser(id, payload as IUserMutate) : await this.userService.createUser(payload as IUserMutate);
+        console.log(response);
+        this.uiService.closeDrawer();
+        this.uiService.showToast('success', 'Success', `User ${id ? 'updated' : 'created'} successfully`);
+        await this.loadDeviceService();
+        this.expandedRows = {};
+        this.loadedExpandedData = {};
+      } catch (error: any) {
+        console.log(error);
+        this.uiService.showToast('error', 'Error', 'Failed to create user');
+      }
+    }
+
+    async handleNestedConfigActionClick(event : {action: string, item: any}): Promise<void> {
+      switch (event.action) {
+        case 'nested_edit':
+          this.nestedInitialData = this.nestedDevice = event.item;
+          this.uiService.openDrawer(this.updateLinkedUserContent, "Linked User Management");
+          break;
+
+        case 'nested_unlink':
+          console.log('Unlink clicked');
+          break;
+      }
     }
 
 }

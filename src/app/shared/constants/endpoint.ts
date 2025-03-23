@@ -8,7 +8,8 @@ export const GET_VEHICLE_LIST_ENDPOINT = 'VehicleList';
 // User Endpoints
 export const GET_USER_LIST_ENDPOINT = 'User';
 export const CREATE_USER_ENDPOINT = 'User';
-export const GET_USER_BY_ID_ENDPOINT = 'device/GetByUserId';
+export const GET_USER_BY_ID_ENDPOINT = 'User';
+export const GET_LINKED_VEHICLE_BY_USER_ID_ENDPOINT = 'device/GetByUserId';
 
 // Device Endpoints
 export const GET_DEVICE_LIST_ENDPOINT = 'device';

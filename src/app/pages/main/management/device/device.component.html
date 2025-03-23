@@ -1,6 +1,6 @@
 <div class="border border-surface rounded-2xl p-5">
     <app-generic-table [data]="tableData" [config]="tableConfig" title="Device" [showActions]="true" [loading]="loading" [activeOnes]="'0 Device'"
-     (onNew)="handleNewUpdateDevice()" (configActionClicked)="handleConfigActionClick($event)" [expandLoading]="expandLoading"
+     (onNew)="handleNewUpdateDevice()" (configActionClicked)="handleConfigActionClick($event)" (nestedConfigActionClicked)="handleNestedConfigActionClick($event)"  [expandLoading]="expandLoading"
      [expandedRows]="expandedRows" (rowExpand)="onRowExpand($event)"
      (rowCollapse)="onRowCollapse($event)">
     </app-generic-table>
@@ -10,4 +10,10 @@
 <ng-template #createUpdateDeviceContent>
     <h3 class="text-xl font-semibold mb-4 text-muted-color-emphasis">Create New Device</h3>
     <app-generic-form [fields]="deviceFormFields()" [initialData]="initialData" (formSubmit)="handleFormSubmit($event)"></app-generic-form>
+</ng-template>
+
+
+<ng-template #updateLinkedUserContent>
+    <h3 class="text-xl font-semibold mb-4 text-muted-color-emphasis">Create New User</h3>
+    <app-generic-form [fields]="userFormFields()" [initialData]="nestedInitialData" (formSubmit)="handleLinkedDeviceFormSubmit($event)"></app-generic-form>
 </ng-template>

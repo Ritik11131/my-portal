@@ -117,9 +117,33 @@ export const dashboardTableConfig: TableConfig = {
     rowHover: true,
     responsive: true,
     expandable: true,
+    showExpandableActions: true,
     expandableColumns: [
-      { field: 'deviceImei', header: 'Imei', },
-    ]
+      { field: 'userName', header: 'User Name', },
+      { field: 'loginId', header: 'Login ID' },
+      { field: 'email', header: 'Email', },
+      { field: 'mobileNo', header: 'Mobile Number', },
+    ],
+    expandableActions: {
+      customButtons: [
+        {
+          id: 1,
+          key: 'nested_edit',
+          label:'Edit',
+          tooltip: 'Update',
+          icon: 'pi pi-pen-to-square',
+          severity: 'contrast'
+        },
+        {
+          id: 2,
+          key: 'nested_unlink',
+          label:'Unlink',
+          tooltip: 'Unlink User',
+          icon: 'pi pi-link',
+          severity: 'contrast'
+        }
+      ]
+    }
   };
 
   export const reportTableConfig: TableConfig = {
