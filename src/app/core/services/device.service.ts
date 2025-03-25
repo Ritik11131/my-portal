@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { IResponse } from '@/app/shared/interfaces/api.interfaces';
-import { CREATE_DEVICE_ENDPOINT, GET_DEVICE_LIST_ENDPOINT, GET_LINKED_VEHICLE_BY_USER_ID_ENDPOINT, GET_USER_BY_DEVICE_ID_ENDPOINT } from '@/app/shared/constants/endpoint';
-import { IDevice, IMutateDevice } from '@/app/shared/interfaces/device.interfaces';
+import { CREATE_DEVICE_ENDPOINT, GET_DEVICE_LIST_ENDPOINT, GET_LINKED_VEHICLE_BY_USER_ID_ENDPOINT, GET_USER_BY_DEVICE_ID_ENDPOINT, UNLINK_USER_FROM_DEVICE } from '@/app/shared/constants/endpoint';
+import { IDevice, IMutateDevice, IUnlinkUserFromDevice } from '@/app/shared/interfaces/device.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,10 @@ export class DeviceService {
     async getDevicesByUserId(id:number): Promise<IResponse> {
       const response = await this.httpService.get<IResponse>(GET_LINKED_VEHICLE_BY_USER_ID_ENDPOINT, {}, id);
       return response?.data;
+    }
+
+    async unlinkUserFromDevice(data: IUnlinkUserFromDevice): Promise<IResponse> {
+      return this.httpService.post<IResponse>(UNLINK_USER_FROM_DEVICE, data);
     }
 
 }

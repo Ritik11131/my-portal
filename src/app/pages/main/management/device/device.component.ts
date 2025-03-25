@@ -40,7 +40,7 @@ export class DeviceComponent {
     userFormFields = signal<FormField[]>(NEW_USER_FORM_JSON);
 
   
-    constructor(private uiService: UiService, private httpService: HttpService, private userService: UserService, 
+    constructor(private uiService: UiService, private httpService: HttpService, private userService: UserService,
                 private deviceService:DeviceService, private dropdownService:DropdownService) { }
   
     ngOnInit(): void {
@@ -213,7 +213,32 @@ export class DeviceComponent {
           break;
 
         case 'nested_unlink':
+          const { deviceId, userId, mappingId } = event.item;
           console.log('Unlink clicked');
+          const confirmed = await this.uiService.confirm({
+            message: 'Do you want to unlink this user?',
+            header: 'Unlink User',
+            icon: 'pi pi-question-circle',
+            acceptButtonProps:{
+              label: 'Unlink',
+              severity: 'danger',
+              outlined: false
+            }
+          });
+      
+          if (confirmed) {
+            console.log(confirmed);
+            try {
+              await this.deviceService.unlinkUserFromDevice({deviceId, userId, mappingId});
+              this.uiService.showToast('success', 'Success', 'User unlinked successfully');
+              this.expandedRows = {};
+              this.loadedExpandedData = {};
+            } catch (error) {
+              this.uiService.showToast('error', 'Error', 'Failed to unlink user')
+            }
+            
+            // Perform custom action
+          }
           break;
       }
     }

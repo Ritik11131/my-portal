@@ -18,6 +18,7 @@ export const GET_USER_BY_DEVICE_ID_ENDPOINT = 'DeviceMapping/GetUserListByDevice
 export const SAMPLE_FILE_ENDPOINT = 'storage/static/parent_bulk_upload.xlsx';
 export const SAMPLE_FILENAME = 'parent_bulk_upload.xlsx';
 export const UPLOAD_PARENT_BULK_ENDPOINT = 'bulk/parents/create';
+export const UNLINK_USER_FROM_DEVICE = 'DeviceMapping/UnlinkMapping';
 
 // Dropdowns Endpoint
 export const GET_DEVICE_TYPE_ENDPOINT ='Masters/DeviceType';

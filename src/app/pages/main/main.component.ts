@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DividerModule } from 'primeng/divider';
@@ -22,7 +23,7 @@ import { AuthService } from '@/app/core/services/auth.service';
 @Component({
   selector: 'app-main',
   imports: [CommonModule, ButtonModule, InputTextModule, CardModule, ToastModule, DividerModule, SelectModule, MultiSelectModule,
-    AvatarModule, RouterModule, FormsModule, TooltipModule, OverlayBadgeModule, DrawerModule,GenericDrawerComponent],
+    AvatarModule, RouterModule, FormsModule, TooltipModule, OverlayBadgeModule, DrawerModule,GenericDrawerComponent, ConfirmDialogModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })

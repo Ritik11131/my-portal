@@ -46,5 +46,11 @@ export interface IMutateDevice {
     lastUpdateOn: string;
     creationTime: string;
   }
+
+  export interface IUnlinkUserFromDevice {
+    deviceId: number;
+    userId: number;
+    mappingId: number;
+  }
   
   
