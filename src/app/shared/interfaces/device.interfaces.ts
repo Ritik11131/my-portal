@@ -52,5 +52,12 @@ export interface IMutateDevice {
     userId: number;
     mappingId: number;
   }
+
+  export interface ISendCommandToDevice {
+    DeviceId: number,
+    command: string,
+    commandType: string,
+    token: string
+  }
   
   

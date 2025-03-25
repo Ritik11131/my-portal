@@ -89,11 +89,21 @@ export const dashboardTableConfig: TableConfig = {
       { field: 'simPhoneNumber', header: 'Primary Mob Number', },
       { field: 'simSecPhoneNumber', header: 'Secondary Mob Number', },
       { field: 'installationOn', header: 'Installation Date', displayType:'date' },
-      { field: 'creationTime', header: 'Created On', displayType:'date' },
+      // { field: 'creationTime', header: 'Created On', displayType:'date' },
     ],
     toolbar: {
       showNew: true,
-      showExport: true
+      showExport: true,
+      customButtons: [
+        {
+          id: 1,
+          key: 'link_command',
+          label:'Link / Command',
+          tooltip: 'Link Device / Send Command',
+          makeDisabledWithCheckboxes: true,
+          severity: 'contrast'
+        }
+      ]
     },
     actions: {
       customButtons: [

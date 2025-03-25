@@ -1,3 +1,4 @@
+import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
 import { DeviceService } from '@/app/core/services/device.service';
 import { DropdownService } from '@/app/core/services/dropdown.service';
 import { HttpService } from '@/app/core/services/http.service';
@@ -6,16 +7,16 @@ import { UserService } from '@/app/core/services/user.service';
 import { FormData, FormField, GenericFormComponent } from '@/app/shared/components/generic-form/generic-form.component';
 import { GenericTableComponent } from '@/app/shared/components/generic-table/generic-table.component';
 import { deviceTableConfig, userTableConfig } from '@/app/shared/config/table.config';
-import { NEW_DEVICE_FORM_JSON } from '@/app/shared/constants/device';
+import { NEW_DEVICE_FORM_JSON, SEND_COMMAND_FORM_JSON } from '@/app/shared/constants/device';
 import { NEW_USER_FORM_JSON } from '@/app/shared/constants/user';
 import { IDevice, IMutateDevice } from '@/app/shared/interfaces/device.interfaces';
 import { TableConfig } from '@/app/shared/interfaces/table.interface';
 import { IUser, IUserMutate } from '@/app/shared/interfaces/user.interfaces';
-import { Component, signal, TemplateRef, ViewChild } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-device',
-  imports: [GenericTableComponent, GenericFormComponent],
+  imports: [GenericTableComponent, GenericFormComponent, DividerModule],
   templateUrl: './device.component.html',
   styleUrl: './device.component.css'
 })
@@ -23,6 +24,7 @@ export class DeviceComponent {
 
    @ViewChild("createUpdateDeviceContent") createUpdateDeviceContent!: TemplateRef<any>;
    @ViewChild("updateLinkedUserContent") updateLinkedUserContent!: TemplateRef<any>;
+   @ViewChild("linkDeviceOrSendCommandContent") linkDeviceOrSendCommandContent!: TemplateRef<any>;
 
   
   
@@ -30,6 +32,8 @@ export class DeviceComponent {
     tableData: IDevice[] = [];
     loading: boolean = false;
     deviceFormFields = signal<FormField[]>(NEW_DEVICE_FORM_JSON);
+    userFormFields = signal<FormField[]>(NEW_USER_FORM_JSON);
+    sendCommandFormFields = signal<FormField[]>(SEND_COMMAND_FORM_JSON);
     initialData: FormData = {};
     nestedInitialData: FormData = {};
     device!: FormData;
@@ -37,7 +41,7 @@ export class DeviceComponent {
     expandedRows: { [key: string]: boolean } = {};
     expandLoading: { [key: string]: boolean } = {};
     loadedExpandedData: { [key: string]: boolean } = {}; // Track which rows have loaded data
-    userFormFields = signal<FormField[]>(NEW_USER_FORM_JSON);
+    selectedRowItems: any[] = [];
 
   
     constructor(private uiService: UiService, private httpService: HttpService, private userService: UserService,
@@ -242,5 +246,51 @@ export class DeviceComponent {
           break;
       }
     }
+
+    handleRowSelectionChange(event: any): void {
+      this.selectedRowItems = event;
+    }
+
+    handleToolbarCustomActionClick(event: { action: string; event?: any }): void {
+      this.initialData = {};
+      this.uiService.openDrawer(this.linkDeviceOrSendCommandContent, "Link Device / Send Command");
+    }
+
+  async handleSendCommandFormSubmit(formData: FormData): Promise<void> {
+    const { command } = formData;
+
+    // Collect all promises for sending commands
+    const promises = this.selectedRowItems.map(async (item) => {
+      const { id } = item;
+      try {
+        const response = await this.deviceService.sendCommandToDevice({
+          DeviceId: id,
+          command,
+          commandType: 'custom',
+          token: 'web'
+        });
+        return { id, success: true, response };
+      } catch (error) {
+        console.error(`Error sending command to device ${id}:`, error);
+        return { id, success: false, error };
+      }
+    });
+
+    // Wait for all promises to complete
+    const results = await Promise.all(promises);
+
+    // Check results and prepare messages
+    const successCount = results.filter(result => result.success).length;
+    const errorCount = results.length - successCount;
+
+    // Show toaster notification based on results
+    if (errorCount > 0) {
+      this.uiService.showToast('success', 'Success', `Successfully sent commands to ${successCount} devices, but failed for ${errorCount} devices.`);
+
+    } else {
+      this.uiService.showToast('success', 'Success', `Successfully sent commands to all ${successCount} devices.`);
+    }
+    this.uiService.closeDrawer();
+  }
 
 }

@@ -44,6 +44,7 @@
             [pTooltip]="btn.tooltip"
             tooltipPosition="bottom"
             [icon]="btn.icon"
+            [disabled]="btn.makeDisabledWithCheckboxes ? !selectedItems.length : false"
             [severity]="btn.severity"
             (onClick)="handleCustomToolbarActionClick(btn.key)"
             />
@@ -98,6 +99,7 @@
     [expandedRowKeys]="expandedRows" 
     (onRowExpand)="onRowExpand($event)" 
     (onRowCollapse)="onRowCollapse($event)"
+    (selectionChange)="handleSelectionChange($event)"
   >
     @if (config.globalFilter) {
       <ng-template #caption>

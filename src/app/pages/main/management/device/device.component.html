@@ -1,7 +1,7 @@
 <div class="border border-surface rounded-2xl p-5">
-    <app-generic-table [data]="tableData" [config]="tableConfig" title="Device" [showActions]="true" [loading]="loading" [activeOnes]="'0 Device'"
-     (onNew)="handleNewUpdateDevice()" (configActionClicked)="handleConfigActionClick($event)" (nestedConfigActionClicked)="handleNestedConfigActionClick($event)"  [expandLoading]="expandLoading"
-     [expandedRows]="expandedRows" (rowExpand)="onRowExpand($event)"
+    <app-generic-table [data]="tableData" [config]="tableConfig" title="Device" [showActions]="true" [loading]="loading" [activeOnes]="'0 Device'" [selectedItems]="selectedRowItems"
+     (onNew)="handleNewUpdateDevice()" (toolbarCustomActionClicked)="handleToolbarCustomActionClick($event)" (configActionClicked)="handleConfigActionClick($event)" (nestedConfigActionClicked)="handleNestedConfigActionClick($event)"  [expandLoading]="expandLoading"
+     [expandedRows]="expandedRows" (rowExpand)="onRowExpand($event)" (onSelectionChange)="handleRowSelectionChange($event)"
      (rowCollapse)="onRowCollapse($event)">
     </app-generic-table>
 </div>
@@ -16,4 +16,29 @@
 <ng-template #updateLinkedUserContent>
     <h3 class="text-xl font-semibold mb-4 text-muted-color-emphasis">Create New User</h3>
     <app-generic-form [fields]="userFormFields()" [initialData]="nestedInitialData" (formSubmit)="handleLinkedDeviceFormSubmit($event)"></app-generic-form>
+</ng-template>
+
+<ng-template #linkDeviceOrSendCommandContent>
+
+    <div class="h-1.5/3 flex flex-col p-3 rounded-xl bg-emphasis">
+        <div class="flex items-start justify-between">
+            <div class="leading-6 font-medium text-color">Link Devices</div>
+        </div>
+        <div
+            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
+            <app-generic-form [fields]="sendCommandFormFields()" [initialData]="initialData" (formSubmit)="handleSendCommandFormSubmit($event)"></app-generic-form>
+        </div>
+    </div>
+
+    <p-divider />
+
+    <div class="h-1.5/3 flex flex-col p-3 rounded-xl bg-emphasis">
+        <div class="flex items-start justify-between">
+            <div class="leading-6 font-medium text-color">Send Command</div>
+        </div>
+        <div
+            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
+            <app-generic-form [fields]="sendCommandFormFields()" [initialData]="initialData" (formSubmit)="handleSendCommandFormSubmit($event)"></app-generic-form>
+        </div>
+    </div>
 </ng-template>

@@ -96,4 +96,36 @@ export const NEW_DEVICE_FORM_JSON = [
       isRequired: false,
     },
   ];
+
+
+  export const SEND_COMMAND_FORM_JSON = [
+    {
+      label: "Send Command",
+      name: "command",
+      placeholder: "Command to Send?",
+      type: "text",
+      isRequired: true,
+    },
+  ];
+
+  export const LINK_DEVICE_FORM_JSON = [
+    {
+      label: "Device IMEI",
+      name: "deviceImei",
+      placeholder: "Enter device IMEI",
+      type: "text",
+      isRequired: true,
+    },
+    {
+      label: "Device Type",
+      name: "fkDeviceType",
+      placeholder: "Select device type",
+      type: "dropdown",
+      options: [
+        { label: "GIPL-04", value: "GIPL-04" },
+        // Add more device types if needed
+      ],
+      isRequired: true,
+    },
+  ]
   

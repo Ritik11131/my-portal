@@ -57,6 +57,7 @@ export class GenericTableComponent {
   @Input() showActions: boolean = true;
   @Input() showSummary: boolean = true;
   @Input() activeOnes = '';
+  @Input() selectedItems: any[] = [];
   // Add an input for expanded row loading states
   @Input() expandLoading: { [key: string]: boolean } = {};
   @Input() expandedRows: { [key: string]: boolean } = {};
@@ -73,10 +74,11 @@ export class GenericTableComponent {
   @Output() toolbarCustomActionClicked = new EventEmitter<{ action: string; event?:any }>();
   @Output() rowExpand = new EventEmitter<any>(); // Event emitter for row expand
   @Output() rowCollapse = new EventEmitter<any>(); // Event emitter for row collapse
+  @Output() onSelectionChange = new EventEmitter<any>(); // Event emitter for row select
 
   @ViewChild('dt') table!: Table;
 
-  selectedItems: any[] = [];
+  // selectedItems: any[] = [];
   actionItems: MenuItem[] | undefined = [];
   nestedActionItems: MenuItem[] | undefined = [];
 
@@ -133,6 +135,10 @@ export class GenericTableComponent {
 
   handleCustomToolbarActionClick(action: string, event?:any) : void {
     this.toolbarCustomActionClicked.emit({ action, event });
+  }
+
+  handleSelectionChange(event: any) {
+   this.onSelectionChange.emit(event);
   }
 
 

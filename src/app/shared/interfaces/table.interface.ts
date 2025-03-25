@@ -31,6 +31,7 @@ export interface ColumnConfig {
       label?:string;
       tooltip: string;
       icon?: string;
+      makeDisabledWithCheckboxes?: boolean;
       severity?: "success" | "info" | "warn" | "danger" | "help" | "primary" | "secondary" | "contrast" | null | undefined;
     }[];
   }
