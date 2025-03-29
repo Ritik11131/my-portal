@@ -67,13 +67,13 @@ export const NEW_USER_FORM_JSON = [
       type: "radio",
       options: [
         {
-          label: "Customer",
-          name: "customer",
+          label: "Re Seller",
+          name: "reseller",
           value: 2
         },
         {
-          label: "Dealer",
-          name: "dealer",
+          label: "User",
+          name: "user",
           value: 1
         },
       ],

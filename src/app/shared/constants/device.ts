@@ -110,21 +110,11 @@ export const NEW_DEVICE_FORM_JSON = [
 
   export const LINK_DEVICE_FORM_JSON = [
     {
-      label: "Device IMEI",
-      name: "deviceImei",
-      placeholder: "Enter device IMEI",
-      type: "text",
-      isRequired: true,
-    },
-    {
-      label: "Device Type",
-      name: "fkDeviceType",
-      placeholder: "Select device type",
+      label: "Select Users",
+      name: "userId",
+      placeholder: "Select users",
       type: "dropdown",
-      options: [
-        { label: "GIPL-04", value: "GIPL-04" },
-        // Add more device types if needed
-      ],
+      options: [],
       isRequired: true,
     },
   ]

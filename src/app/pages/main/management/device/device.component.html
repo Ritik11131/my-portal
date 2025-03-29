@@ -20,13 +20,15 @@
 
 <ng-template #linkDeviceOrSendCommandContent>
 
+    <span>{{selectedRowItems.length}} devices selected</span>
+
     <div class="h-1.5/3 flex flex-col p-3 rounded-xl bg-emphasis">
         <div class="flex items-start justify-between">
             <div class="leading-6 font-medium text-color">Link Devices</div>
         </div>
         <div
             class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
-            <app-generic-form [fields]="sendCommandFormFields()" [initialData]="initialData" (formSubmit)="handleSendCommandFormSubmit($event)"></app-generic-form>
+            <app-generic-form [fields]="linkDevicesFormFields()" [initialData]="initialData" (formSubmit)="handleLinkDeviceFormSubmit($event)"></app-generic-form>
         </div>
     </div>
 

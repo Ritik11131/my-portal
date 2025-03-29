@@ -8,7 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TagValuePipe implements PipeTransform {
   transform(item: any, field: string): string {
     if (field === 'userType') {
-      return item[field] === 1 ? 'Dealer' : 'Customer';
+      return item[field] === 1 ? 'User' : 'Re Seller';
     }
     return item[field] || '-';
   }

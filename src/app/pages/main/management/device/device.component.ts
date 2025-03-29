@@ -7,7 +7,7 @@ import { UserService } from '@/app/core/services/user.service';
 import { FormData, FormField, GenericFormComponent } from '@/app/shared/components/generic-form/generic-form.component';
 import { GenericTableComponent } from '@/app/shared/components/generic-table/generic-table.component';
 import { deviceTableConfig, userTableConfig } from '@/app/shared/config/table.config';
-import { NEW_DEVICE_FORM_JSON, SEND_COMMAND_FORM_JSON } from '@/app/shared/constants/device';
+import { LINK_DEVICE_FORM_JSON, NEW_DEVICE_FORM_JSON, SEND_COMMAND_FORM_JSON } from '@/app/shared/constants/device';
 import { NEW_USER_FORM_JSON } from '@/app/shared/constants/user';
 import { IDevice, IMutateDevice } from '@/app/shared/interfaces/device.interfaces';
 import { TableConfig } from '@/app/shared/interfaces/table.interface';
@@ -34,6 +34,7 @@ export class DeviceComponent {
     deviceFormFields = signal<FormField[]>(NEW_DEVICE_FORM_JSON);
     userFormFields = signal<FormField[]>(NEW_USER_FORM_JSON);
     sendCommandFormFields = signal<FormField[]>(SEND_COMMAND_FORM_JSON);
+    linkDevicesFormFields = signal<FormField[]>(LINK_DEVICE_FORM_JSON);
     initialData: FormData = {};
     nestedInitialData: FormData = {};
     device!: FormData;
@@ -291,6 +292,10 @@ export class DeviceComponent {
       this.uiService.showToast('success', 'Success', `Successfully sent commands to all ${successCount} devices.`);
     }
     this.uiService.closeDrawer();
+  }
+
+  handleLinkDeviceFormSubmit(formData: FormData): void {
+    console.log(formData,'data');
   }
 
 }
