@@ -35,7 +35,7 @@ export class MainComponent {
   sampleAppsSidebarNavs: any = sidebarNavigations;
   sampleAppsSidebarNavsMore: any = moreSidebarNavigations;
   selectedSampleAppsSidebarNav: any = 'Device';
-  isSlimMenu: boolean = false;
+  isSlimMenu: boolean = true;
 
   constructor(private router: Router, public uiService:UiService,private authService:AuthService) {
     const lastSelectedNav = localStorage.getItem('lastSelectedNav')?.split(',');
