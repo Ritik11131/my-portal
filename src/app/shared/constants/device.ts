@@ -111,7 +111,7 @@ export const NEW_DEVICE_FORM_JSON = [
   export const LINK_DEVICE_FORM_JSON = [
     {
       label: "Select Users",
-      name: "userId",
+      name: "users",
       placeholder: "Select users",
       type: "dropdown",
       options: [],

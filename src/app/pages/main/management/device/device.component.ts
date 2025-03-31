@@ -252,8 +252,9 @@ export class DeviceComponent {
       this.selectedRowItems = event;
     }
 
-    handleToolbarCustomActionClick(event: { action: string; event?: any }): void {
+    async handleToolbarCustomActionClick(event: { action: string; event?: any }): Promise<void> {
       this.initialData = {};
+      await this.updateLinkMultipleDeviceFormField();
       this.uiService.openDrawer(this.linkDeviceOrSendCommandContent, "Link Device / Send Command");
     }
 
@@ -292,6 +293,30 @@ export class DeviceComponent {
       this.uiService.showToast('success', 'Success', `Successfully sent commands to all ${successCount} devices.`);
     }
     this.uiService.closeDrawer();
+  }
+
+
+  async updateLinkMultipleDeviceFormField(): Promise<void> {
+    const [users] = await Promise.all([ this.dropdownService.getUsersOptions() ]);
+
+    this.linkDevicesFormFields.update((fields) => {
+      return fields.map((field) => {
+        if (field.type === 'dropdown') {
+          switch (field.name) {
+            case 'users':
+              return { ...field, options: users.map((user) => {
+                return {
+                  ...user,
+                  value: user.id
+                }
+              }) };
+          }
+        }
+        return field;
+      });
+    });
+
+
   }
 
   handleLinkDeviceFormSubmit(formData: FormData): void {
