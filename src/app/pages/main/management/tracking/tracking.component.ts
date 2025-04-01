@@ -16,14 +16,25 @@ import { statusCards } from '@/app/shared/constants/dashboard';
 import { IResponse } from '@/app/shared/interfaces/api.interfaces';
 import { DashboardService } from '@/app/core/services/dashboard.service';
 import { TagModule } from 'primeng/tag';
+import { UiService } from '@/app/core/services/ui.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ButtonModule } from 'primeng/button';
+import { sideWindowVehicleActions, sideWindowVehicleDetails } from '@/app/shared/constants/tracking';
 
 
 
 @Component({
   selector: 'app-tracking',
-  imports: [CommonModule, AvatarModule, BadgeModule, IconField, InputIcon, FormsModule, InputTextModule, SelectButtonModule, LeafletModule, LeafletMarkerClusterModule, TagModule],
+  imports: [CommonModule, AvatarModule, BadgeModule, IconField, InputIcon, FormsModule, InputTextModule, SelectButtonModule, LeafletModule, LeafletMarkerClusterModule, TagModule, ButtonModule],
   templateUrl: './tracking.component.html',
-  styleUrl: './tracking.component.css'
+  styleUrl: './tracking.component.css',
+  animations: [
+    trigger('slideInOut', [
+      state('closed', style({ transform: 'translateX(100%)', visibility: 'hidden' })), // Off-screen
+      state('open', style({ transform: 'translateX(0)', visibility: 'visible' })), // Visible
+      transition('closed <=> open', animate('400ms ease-in-out'))
+    ])
+  ]
 })
 export class TrackingComponent {
   map!: Map;
@@ -41,6 +52,8 @@ export class TrackingComponent {
   };
   statusCards: IstatusCards[] = statusCards;
   loading: boolean = false;
+  sideWindowVehicleDetailsObj = sideWindowVehicleDetails;
+  sideWindowVehicleActionsObj = sideWindowVehicleActions;
 
 
   options: string[] = ['Chat', 'Call'];
@@ -57,8 +70,14 @@ export class TrackingComponent {
     active: Math.random() > 0.5,
   }));
 
+  isDeviceDetailsOpen = false;
 
-  constructor(private dashboardService: DashboardService) { }
+  toggleDeviceDetails() {
+    this.isDeviceDetailsOpen = !this.isDeviceDetailsOpen;
+  }
+
+
+  constructor(private dashboardService: DashboardService, private uiService:UiService) { }
 
   onMapReady(map: Map) {
     this.map = map;
@@ -141,6 +160,11 @@ export class TrackingComponent {
 
     response.forEach(item => {
       const { latitude, longitude } = item.position;
+
+      // if(!latitude && !longitude) {
+      //   this.uiService.showToast('warn', 'Warning', 'No Position Found!')
+      // }
+
       const status = item.position.status.status;
 
       // Define marker colors based on status
@@ -201,7 +225,11 @@ export class TrackingComponent {
   };
 
   fillVehicleList = (response: any[]) => {
-    this.vehicleList = response.map(({ device, position }) => ({
+    this.vehicleList = response.map(({ device, position, parking, validity }) => ({
+      device,
+      position,
+      parking,
+      validity,
       vehicleNo: device.vehicleNo,
       vehicleStatus: position?.status.status === 'Customer recharge expired' ? 'Offline' : position?.status.status,
       vehicleDuration: position?.status.duration,
@@ -211,12 +239,12 @@ export class TrackingComponent {
             return 'secondary'; // Grey
           case 'stop':
             return 'danger'; // Red
-          case 'Running':
+          case 'running':
             return 'success'; // Green
           case 'Offline':
             return 'secondary'; // Grey
           case 'dormant':
-            return 'primary'; // Blue
+            return 'warn'; // Blue
           default:
             return 'contrast'; // Default Gray
         }
@@ -224,6 +252,14 @@ export class TrackingComponent {
       
     }));
   };
+
+  handleVehicleClick = (selectedVehicle: any) => {
+    this.activeVehicle = selectedVehicle.vehicleNo;
+    console.log(selectedVehicle);
+    
+    this.plotMarkers([selectedVehicle]);
+    this.isDeviceDetailsOpen = !this.isDeviceDetailsOpen;
+  }
   
 
 }

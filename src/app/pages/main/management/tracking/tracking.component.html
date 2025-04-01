@@ -38,7 +38,7 @@
 
         <div class="flex-1 flex flex-col max-h-[calc(100vh-250px)] overflow-y-auto shadow-sm divide-y divide-surface-200 dark:divide-surface-800">
             @for (vehicle of vehicleList; track $index) {
-                <div (click)="activeVehicle = vehicle.vehicleNo" class="flex items-center gap-2 p-4 cursor-pointer hover:bg-emphasis transition-all" [ngClass]="{
+                <div (click)="handleVehicleClick(vehicle)" class="flex items-center gap-2 p-4 cursor-pointer hover:bg-emphasis transition-all" [ngClass]="{
                     'bg-emphasis': vehicle.vehicleNo === activeVehicle
                 }">
                     <div class="relative">
@@ -63,16 +63,52 @@
     </div>
 
     <!-- Right Container (Map Section, Fixed) -->
-    <div class="w-full md:w-full border-x border-surface p-3">
+    <div class="w-full md:w-full border-x border-surface p-3 relative overflow-hidden">
         <div class="h-[90vh] relative">
-            <!-- Ensure Leaflet container inherits full height/width -->
-            <div
-                class="absolute inset-0"
-                leaflet
-                [leafletOptions]="mapOptions"
-                (leafletMapReady)="onMapReady($event)">
-            </div>
+          <!-- Ensure Leaflet container inherits full height/width -->
+          <div
+            class="absolute inset-0 z-10"
+            leaflet
+            [leafletOptions]="mapOptions"
+            (leafletMapReady)="onMapReady($event)">
+          </div>
         </div>
-    </div>
+      
+        <!-- Side Window (Device Details) -->
+        <div
+        class="absolute top-0 right-0 h-full w-[35%] bg-white shadow-lg p-6 z-40 flex flex-col"
+        [@slideInOut]="isDeviceDetailsOpen ? 'open' : 'closed'">
+        
+        <!-- Header: Vehicle Info -->
+        <div class="grid grid-cols-3 items-center border-b pb-3">
+          <div class="col-span-2">
+            <h3 class="text-xl font-bold text-gray-800">Vehicle Name</h3>
+            <p class="text-sm text-gray-500">Vehicle ID: #12345</p>
+          </div>
+          <div class="flex justify-end">
+            <img src="vehicle_detail_truck.png" alt="Vehicle" class="w-full h-16 object-contain">
+          </div>
+        </div>
+      
+        <!-- Status Grid -->
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            @for (status of sideWindowVehicleDetailsObj; track $index) {
+            <div class="flex flex-col bg-gray-100 p-3 rounded-lg" [ngClass]="{ 'col-span-2': status.key === 'position' }">
+                <span class="text-xs text-gray-500">{{ status.label }}</span>
+                <span class="text-sm font-semibold" [ngClass]="status.color">{{ status.value }}</span>
+            </div>
+            }
+        </div>
+
+     
+        <!-- Close Button -->
+        <p-button severity="danger" label="Dismiss" icon="pi pi-sign-out" styleClass="w-full" class="w-full mt-auto" (onClick)="toggleDeviceDetails()"/>
+     
+      
+      </div>
+      
+      </div>
+      
+      
 
 </div>
